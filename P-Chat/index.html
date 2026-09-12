@@ -463,7 +463,7 @@ var APP_STORE_URL = ""; // ← App Store 链接，例如 https://apps.apple.com/
       var saved = localStorage.getItem(LANG_KEY);
       if (saved && I18N[saved]) return saved;
     } catch (e) {}
-    return (navigator.language || "en").toLowerCase().indexOf("zh") === 0 ? "zh_CN" : "en_US";
+    return "en_US"; // 默认英文；用户手动切换后记忆在本地
   }
   function t(key) {
     var d = locales[lang] || {};
