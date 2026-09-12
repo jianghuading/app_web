@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suzatei — 用心打磨的 AI 应用</title>
+<meta name="description" content="Suzatei 出品：API 钱包、P Chat、PhoenixAI。管好 AI 余额、演绎你的故事、释放创作灵感——本地优先，隐私至上。">
+<meta name="robots" content="all">
+<meta property="og:title" content="Suzatei — 用心打磨的 AI 应用">
+<meta property="og:description" content="API 钱包 · P Chat · PhoenixAI，本地优先，隐私至上。">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="image/icon.png">
+<style>
+  :root {
+    --bg: #06070c;
+    --card: rgba(240, 240, 255, .045);
+    --card-strong: rgba(240, 240, 255, .075);
+    --line: rgba(225, 225, 255, .1);
+    --line-strong: rgba(225, 225, 255, .2);
+    --text: #f3f3f8;
+    --text-2: #aeb0c4;
+    --text-3: #71738a;
+    --radius: 22px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Text", "PingFang SC", "Helvetica Neue", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: rgba(140, 130, 255, .35); }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgba(235,235,255,.14); border-radius: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+
+  /* ---------- 背景氛围 ---------- */
+  .orb { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .42; pointer-events: none; z-index: 0; }
+  .orb-1 { width: 520px; height: 520px; background: #3730a3; top: -160px; left: -140px; animation: drift 18s ease-in-out infinite alternate; }
+  .orb-2 { width: 460px; height: 460px; background: #9a3412; top: -40px; right: -150px; opacity: .3; animation: drift 22s ease-in-out infinite alternate-reverse; }
+  .orb-3 { width: 380px; height: 380px; background: #7e22ce; top: 480px; left: 40%; opacity: .26; animation: drift 26s ease-in-out infinite alternate; }
+  @keyframes drift {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(56px, 48px, 0) scale(1.12); }
+  }
+  .grid-bg {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(225, 225, 255, .05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(225, 225, 255, .05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 78%);
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 35%, transparent 78%);
+  }
+  .hero-wrap { position: relative; overflow: hidden; }
+
+  /* ---------- 导航 ---------- */
+  nav { position: sticky; top: 0; z-index: 50; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+  nav.scrolled {
+    background: rgba(6, 7, 12, .72);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    border-bottom-color: var(--line);
+  }
+  .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; gap: 28px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
+  .brand .mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: conic-gradient(from 210deg, #5b7cff, #ff7162, #ffbc5f, #5d62f2, #5b7cff);
+    box-shadow: 0 2px 12px rgba(150, 120, 255, .5);
+  }
+  .nav-links { display: flex; gap: 26px; margin-left: auto; }
+  .nav-links a { font-size: 14px; color: var(--text-2); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .lang-switch { display: flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.04); }
+  .lang-btn {
+    border: 0; background: transparent; color: var(--text-2);
+    font: 600 12.5px/1 inherit; font-family: inherit;
+    padding: 7px 13px; border-radius: 999px; cursor: pointer;
+    transition: color .2s, background .2s;
+  }
+  .lang-btn:hover { color: var(--text); }
+  .lang-btn.active { background: linear-gradient(135deg, #5d62f2, #9333ea); color: #fff; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; z-index: 1;
+    max-width: 860px; margin: 0 auto; padding: 110px 24px 96px;
+    text-align: center;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 500; color: var(--text-2);
+    border: 1px solid var(--line-strong); border-radius: 999px;
+    padding: 7px 15px; background: rgba(255,255,255,.04);
+    margin-bottom: 28px;
+  }
+  .badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #8b8dff; box-shadow: 0 0 10px #8b8dff; animation: pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  h1 { font-size: clamp(40px, 6.4vw, 72px); line-height: 1.08; font-weight: 800; letter-spacing: -.025em; }
+  h1 .grad {
+    background: linear-gradient(115deg, #7da2ff, #ff8a70 50%, #ffc46b);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .hero-desc { margin: 24px auto 0; font-size: 18px; color: var(--text-2); max-width: 36em; }
+  .hero-cta { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 999px;
+    font-size: 15.5px; font-weight: 600; font-family: inherit;
+    cursor: pointer; border: 0; transition: transform .2s, box-shadow .2s, background .2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #5d62f2, #9333ea); color: #fff;
+    box-shadow: 0 8px 28px rgba(120, 90, 245, .42), inset 0 1px 0 rgba(255,255,255,.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(120, 90, 245, .55); }
+  .btn-ghost { background: rgba(255,255,255,.05); color: var(--text); border: 1px solid var(--line-strong); }
+  .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,.09); }
+
+  /* ---------- 产品卡片 ---------- */
+  section.block { max-width: 1120px; margin: 0 auto; padding: 90px 24px 0; position: relative; z-index: 1; }
+  .eyebrow {
+    display: block; text-align: center; font-size: 13px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; margin-bottom: 14px;
+    background: linear-gradient(115deg, #7da2ff, #ff8a70 50%, #ffc46b);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  h2.title { text-align: center; font-size: clamp(30px, 4vw, 44px); font-weight: 800; letter-spacing: -.02em; }
+  p.subtitle { text-align: center; color: var(--text-2); font-size: 17px; margin: 14px auto 0; max-width: 40em; }
+
+  .apps { margin-top: 56px; display: grid; gap: 20px; grid-template-columns: repeat(3, 1fr); }
+  .app-card {
+    --c1: #5b7cff; --c2: #8b5cf6;
+    position: relative; display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 34px 30px 30px; overflow: hidden;
+    transition: transform .3s, border-color .3s, background .3s, box-shadow .3s;
+  }
+  .app-card::before {
+    content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+    background: radial-gradient(420px 200px at 50% -10%, color-mix(in srgb, var(--c1) 22%, transparent), transparent 72%);
+  }
+  .app-card:hover {
+    transform: translateY(-8px);
+    border-color: color-mix(in srgb, var(--c1) 55%, transparent);
+    background: var(--card-strong);
+    box-shadow: 0 22px 50px color-mix(in srgb, var(--c1) 22%, rgba(0,0,0,.4));
+  }
+  .app-card:hover::before { opacity: 1; }
+  .app-card.wallet { --c1: #5b7cff; --c2: #22d3ee; }
+  .app-card.pchat  { --c1: #ff7162; --c2: #ffbc5f; }
+  .app-card.phoenix { --c1: #8b8dff; --c2: #ff7a45; }
+  .app-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    animation: floaty 6.5s ease-in-out infinite;
+  }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .app-card h3 { margin-top: 24px; font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
+  .app-card .tag {
+    margin-top: 6px; font-size: 14.5px; font-weight: 600;
+    background: linear-gradient(115deg, var(--c1), var(--c2));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .app-card .desc { margin-top: 12px; font-size: 14.5px; color: var(--text-2); }
+  .app-card ul { margin-top: 18px; display: grid; gap: 9px; list-style: none; }
+  .app-card li { display: flex; align-items: center; gap: 9px; font-size: 14px; color: var(--text-2); }
+  .app-card li i {
+    width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto;
+    background: var(--c2); box-shadow: 0 0 8px var(--c2);
+  }
+  .app-card .cta {
+    margin-top: auto; padding-top: 26px;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 15px; font-weight: 700; color: var(--text);
+  }
+  .app-card .cta .arr { transition: transform .25s; color: var(--c2); }
+  .app-card:hover .cta .arr { transform: translateX(6px); }
+
+  /* ---------- 隐私带 ---------- */
+  .privacy-band { margin-top: 100px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(180deg, rgba(93,98,242,.05), rgba(255,113,98,.04)); position: relative; z-index: 1; }
+  .privacy-inner { max-width: 860px; margin: 0 auto; padding: 70px 24px; text-align: center; }
+  .privacy-inner h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 800; letter-spacing: -.02em; }
+  .privacy-inner .desc { margin-top: 14px; color: var(--text-2); font-size: 16.5px; }
+  .privacy-btns { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .p-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 12px 26px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line-strong);
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .p-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,.1); border-color: rgba(139,141,255,.5); }
+  .p-btn svg { color: #8b8dff; }
+
+  /* ---------- 联系 ---------- */
+  .contact-grid { margin-top: 54px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .contact-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 36px 32px; text-align: center;
+    transition: transform .3s, border-color .3s;
+  }
+  .contact-card:hover { transform: translateY(-6px); border-color: rgba(139,141,255,.42); }
+  .contact-card .ic {
+    width: 52px; height: 52px; margin: 0 auto; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(150deg, rgba(93,98,242,.22), rgba(168,85,247,.16));
+    border: 1px solid rgba(139,141,255,.32); color: #a5a8ff;
+  }
+  .contact-card h3 { margin-top: 18px; font-size: 18px; font-weight: 700; }
+  .contact-card p { margin-top: 8px; font-size: 14.5px; color: var(--text-2); }
+  .contact-card a.mail {
+    display: inline-block; margin-top: 18px; font-weight: 600; font-size: 15px;
+    padding: 11px 24px; border-radius: 999px;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line-strong);
+    transition: background .2s, border-color .2s;
+  }
+  .contact-card a.mail:hover { background: rgba(255,255,255,.1); border-color: rgba(139,141,255,.5); }
+
+  /* ---------- 页脚 ---------- */
+  footer { margin-top: 110px; border-top: 1px solid var(--line); padding: 44px 24px 56px; background: rgba(255,255,255,.015); position: relative; z-index: 1; }
+  .foot-inner { max-width: 1120px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between; }
+  .foot-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
+  .foot-brand .mark { width: 26px; height: 26px; border-radius: 8px; background: conic-gradient(from 210deg, #5b7cff, #ff7162, #ffbc5f, #5d62f2, #5b7cff); }
+  .foot-links { display: flex; gap: 22px; font-size: 13.5px; color: var(--text-2); }
+  .foot-links a:hover { color: var(--text); }
+  .foot-note { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--text-3); max-width: 1120px; margin-left: auto; margin-right: auto; }
+
+  /* ---------- 滚动进场 ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s cubic-bezier(.22,.8,.3,1), transform .75s cubic-bezier(.22,.8,.3,1); transition-delay: var(--d, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 980px) {
+    .apps { grid-template-columns: 1fr; max-width: 560px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-inner { height: 58px; }
+    .hero { padding: 64px 20px 72px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .section-pad { padding-top: 72px !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top"><span class="mark"></span><span>Suzatei</span></a>
+    <div class="nav-links">
+      <a href="#products" data-i18n="nav.products">产品</a>
+      <a href="#privacy" data-i18n="nav.privacy">隐私承诺</a>
+      <a href="#contact" data-i18n="nav.contact">联系我们</a>
+    </div>
+    <div class="lang-switch" id="lang-switch" aria-label="Language"></div>
+  </div>
+</nav>
+
+<div class="hero-wrap" id="top">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-bg"></div>
+
+  <header class="hero">
+    <span class="badge reveal"><span class="dot"></span><span data-i18n="hero.badge">Suzatei · 独立开发，用心打磨</span></span>
+    <h1 class="reveal" style="--d:.06s">
+      <span data-i18n="hero.title1">三款产品，</span><br>
+      <span class="grad" data-i18n="hero.title2">一种用心。</span>
+    </h1>
+    <p class="hero-desc reveal" style="--d:.12s" data-i18n="hero.desc">围绕 AI 时代的日常打造：管好每一分 API 开销，演好每一个故事，释放每一次灵感。全部本地优先，隐私至上，打开即用。</p>
+    <div class="hero-cta reveal" style="--d:.18s">
+      <a class="btn btn-primary" href="#products" data-i18n="cta.products">浏览产品</a>
+      <a class="btn btn-ghost" href="#privacy" data-i18n="cta.privacy">我们的隐私承诺</a>
+    </div>
+  </header>
+</div>
+
+<section class="block section-pad" id="products">
+  <span class="eyebrow reveal" data-i18n="apps.eyebrow">产品</span>
+  <h2 class="title reveal" style="--d:.05s" data-i18n="apps.title">为 AI 日常准备的三件套</h2>
+  <p class="subtitle reveal" style="--d:.1s" data-i18n="apps.sub">点击卡片进入各产品介绍页。</p>
+
+  <div class="apps">
+    <a class="app-card wallet reveal" style="--d:.0s" href="API-Wallet/">
+      <img class="app-icon" src="image/wallet-icon.png" alt="API Wallet" width="64" height="64">
+      <h3 data-i18n="card.wallet.name">API 钱包</h3>
+      <span class="tag" data-i18n="card.wallet.tag">AI 余额与套餐聚合管家</span>
+      <p class="desc" data-i18n="card.wallet.desc">聚合管理 DeepSeek、OpenAI、Claude、Gemini、Kimi、智谱 GLM 等服务的余额与订阅套餐。</p>
+      <ul>
+        <li><i></i><span data-i18n="card.wallet.c1">余额套餐，一目了然</span></li>
+        <li><i></i><span data-i18n="card.wallet.c2">桌面小组件常驻显示</span></li>
+        <li><i></i><span data-i18n="card.wallet.c3">密钥仅存钥匙串</span></li>
+      </ul>
+      <span class="cta"><span data-i18n="card.cta">进入产品页</span><span class="arr">→</span></span>
+    </a>
+
+    <a class="app-card pchat reveal" style="--d:.08s" href="P-Chat/">
+      <img class="app-icon" src="image/pchat-icon.png" alt="P Chat" width="64" height="64">
+      <h3 data-i18n="card.pchat.name">P Chat</h3>
+      <span class="tag" data-i18n="card.pchat.tag">AI 角色扮演 · 互动故事</span>
+      <p class="desc" data-i18n="card.pchat.desc">故事导演逐幕编排，最多 8 位角色同台演绎，剧情记忆让长篇故事绵延不断。</p>
+      <ul>
+        <li><i></i><span data-i18n="card.pchat.c1">故事导演，逐幕推进</span></li>
+        <li><i></i><span data-i18n="card.pchat.c2">8 人群聊，五种发言策略</span></li>
+        <li><i></i><span data-i18n="card.pchat.c3">剧情记忆，长篇不断片</span></li>
+      </ul>
+      <span class="cta"><span data-i18n="card.cta">进入产品页</span><span class="arr">→</span></span>
+    </a>
+
+    <a class="app-card phoenix reveal" style="--d:.16s" href="PhoenixAI/">
+      <img class="app-icon" src="image/phoenix-icon.png" alt="PhoenixAI" width="64" height="64">
+      <h3 data-i18n="card.phoenix.name">PhoenixAI</h3>
+      <span class="tag" data-i18n="card.phoenix.tag">AI 对话 · 生图 · 生视频三合一</span>
+      <p class="desc" data-i18n="card.phoenix.desc">自带 API Key 的工作台：GPT、Claude、Gemini 随心聊，Nano Banana 出图，Seedance 生成视频。</p>
+      <ul>
+        <li><i></i><span data-i18n="card.phoenix.c1">主流模型，会话内切换</span></li>
+        <li><i></i><span data-i18n="card.phoenix.c2">最高 2048×2048 高清出图</span></li>
+        <li><i></i><span data-i18n="card.phoenix.c3">Seedance 视频，可含声音</span></li>
+      </ul>
+      <span class="cta"><span data-i18n="card.cta">进入产品页</span><span class="arr">→</span></span>
+    </a>
+  </div>
+</section>
+
+<div class="privacy-band" id="privacy">
+  <div class="privacy-inner">
+    <h2 class="reveal" data-i18n="privacy.title">隐私，是产品的底线</h2>
+    <p class="desc reveal" style="--d:.06s" data-i18n="privacy.desc">你的数据默认只存在你的设备上。如果未来需要收集信息，也仅用于改进产品质量，绝不用于广告或出售。这份承诺，写进了每一款产品。</p>
+    <div class="privacy-btns reveal" style="--d:.12s">
+      <a class="p-btn" href="Privacy/privacy_zh_CN.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></svg>
+        <span data-i18n="privacy.zh">阅读隐私政策（中文）</span>
+      </a>
+      <a class="p-btn" href="Privacy/privacy_en_US.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></svg>
+        <span data-i18n="privacy.en">Read Privacy Policy (English)</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section class="block section-pad" id="contact">
+  <span class="eyebrow reveal" data-i18n="contact.eyebrow">联系</span>
+  <h2 class="title reveal" style="--d:.05s" data-i18n="contact.title">联系我们</h2>
+  <p class="subtitle reveal" style="--d:.1s" data-i18n="contact.sub">疑问、提议，或者想和我们一起做点事。</p>
+
+  <div class="contact-grid">
+    <div class="contact-card reveal" style="--d:0s">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></div>
+      <h3 data-i18n="contact.s.title">技术支持与建议</h3>
+      <p data-i18n="contact.s.desc">遇到问题或有功能建议，我们会尽快回复。</p>
+      <a class="mail" href="mailto:support@suzatei.com">support@suzatei.com</a>
+    </div>
+    <div class="contact-card reveal" style="--d:.08s">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12h18"/></svg></div>
+      <h3 data-i18n="contact.b.title">合作与投资</h3>
+      <p data-i18n="contact.b.desc">商务合作、渠道洽谈与投资事宜，欢迎来信。</p>
+      <a class="mail" href="mailto:contact@suzatei.com">contact@suzatei.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand"><span class="mark"></span><span>Suzatei</span></div>
+    <div class="foot-links">
+      <a href="Privacy/privacy_zh_CN.html" data-i18n="footer.privacy">隐私政策</a>
+      <a href="mailto:support@suzatei.com" data-i18n="footer.support">技术支持</a>
+      <a href="mailto:contact@suzatei.com" data-i18n="footer.biz">商务合作</a>
+    </div>
+  </div>
+  <p class="foot-note" data-i18n="footer.note">© 2026 Suzatei. 保留所有权利。文中提及的第三方名称与其各自所有者所有，仅用于说明。</p>
+</footer>
+
+<script id="i18n-data" type="application/json">
+{
+  "zh_CN": {
+    "meta.title": "Suzatei — 用心打磨的 AI 应用",
+    "meta.desc": "Suzatei 出品：API 钱包、P Chat、PhoenixAI。管好 AI 余额、演绎你的故事、释放创作灵感——本地优先，隐私至上。",
+    "nav.products": "产品",
+    "nav.privacy": "隐私承诺",
+    "nav.contact": "联系我们",
+    "hero.badge": "Suzatei · 独立开发，用心打磨",
+    "hero.title1": "三款产品，",
+    "hero.title2": "一种用心。",
+    "hero.desc": "围绕 AI 时代的日常打造：管好每一分 API 开销，演好每一个故事，释放每一次灵感。全部本地优先，隐私至上，打开即用。",
+    "cta.products": "浏览产品",
+    "cta.privacy": "我们的隐私承诺",
+    "apps.eyebrow": "产品",
+    "apps.title": "为 AI 日常准备的三件套",
+    "apps.sub": "点击卡片进入各产品介绍页。",
+    "card.wallet.name": "API 钱包",
+    "card.wallet.tag": "AI 余额与套餐聚合管家",
+    "card.wallet.desc": "聚合管理 DeepSeek、OpenAI、Claude、Gemini、Kimi、智谱 GLM 等服务的余额与订阅套餐。",
+    "card.wallet.c1": "余额套餐，一目了然",
+    "card.wallet.c2": "桌面小组件常驻显示",
+    "card.wallet.c3": "密钥仅存钥匙串",
+    "card.pchat.name": "P Chat",
+    "card.pchat.tag": "AI 角色扮演 · 互动故事",
+    "card.pchat.desc": "故事导演逐幕编排，最多 8 位角色同台演绎，剧情记忆让长篇故事绵延不断。",
+    "card.pchat.c1": "故事导演，逐幕推进",
+    "card.pchat.c2": "8 人群聊，五种发言策略",
+    "card.pchat.c3": "剧情记忆，长篇不断片",
+    "card.phoenix.name": "PhoenixAI",
+    "card.phoenix.tag": "AI 对话 · 生图 · 生视频三合一",
+    "card.phoenix.desc": "自带 API Key 的工作台：GPT、Claude、Gemini 随心聊，Nano Banana 出图，Seedance 生成视频。",
+    "card.phoenix.c1": "主流模型，会话内切换",
+    "card.phoenix.c2": "最高 2048×2048 高清出图",
+    "card.phoenix.c3": "Seedance 视频，可含声音",
+    "card.cta": "进入产品页",
+    "privacy.title": "隐私，是产品的底线",
+    "privacy.desc": "你的数据默认只存在你的设备上。如果未来需要收集信息，也仅用于改进产品质量，绝不用于广告或出售。这份承诺，写进了每一款产品。",
+    "privacy.zh": "阅读隐私政策（中文）",
+    "privacy.en": "Read Privacy Policy (English)",
+    "contact.eyebrow": "联系",
+    "contact.title": "联系我们",
+    "contact.sub": "疑问、提议，或者想和我们一起做点事。",
+    "contact.s.title": "技术支持与建议",
+    "contact.s.desc": "遇到问题或有功能建议，我们会尽快回复。",
+    "contact.b.title": "合作与投资",
+    "contact.b.desc": "商务合作、渠道洽谈与投资事宜，欢迎来信。",
+    "footer.privacy": "隐私政策",
+    "footer.support": "技术支持",
+    "footer.biz": "商务合作",
+    "footer.note": "© 2026 Suzatei. 保留所有权利。文中提及的第三方名称与其各自所有者所有，仅用于说明。"
+  },
+  "en_US": {
+    "meta.title": "Suzatei — AI apps crafted with care",
+    "meta.desc": "From Suzatei: API Wallet, P Chat and PhoenixAI. Track AI balances, live your stories, unleash creativity — local-first, privacy-first.",
+    "nav.products": "Products",
+    "nav.privacy": "Privacy",
+    "nav.contact": "Contact",
+    "hero.badge": "Suzatei · Independently crafted",
+    "hero.title1": "Three products,",
+    "hero.title2": "one dedication.",
+    "hero.desc": "Built for everyday life with AI: keep every API dollar in view, live every story, and unleash every spark of inspiration. All local-first, privacy-first, ready out of the box.",
+    "cta.products": "Browse products",
+    "cta.privacy": "Our privacy promise",
+    "apps.eyebrow": "PRODUCTS",
+    "apps.title": "The trio for your AI daily",
+    "apps.sub": "Click a card to open its product page.",
+    "card.wallet.name": "API Wallet",
+    "card.wallet.tag": "AI balance & plan tracker",
+    "card.wallet.desc": "Aggregate balances and plans across DeepSeek, OpenAI, Claude, Gemini, Kimi, Zhipu GLM and more.",
+    "card.wallet.c1": "Balances & plans at a glance",
+    "card.wallet.c2": "Home-screen widgets",
+    "card.wallet.c3": "Keys stay in the Keychain",
+    "card.pchat.name": "P Chat",
+    "card.pchat.tag": "AI roleplay · Interactive stories",
+    "card.pchat.desc": "A Story Director paces the tale scene by scene, up to 8 characters share the stage, and Story Memory keeps long stories alive.",
+    "card.pchat.c1": "Story Director, scene by scene",
+    "card.pchat.c2": "8-character group play, 5 strategies",
+    "card.pchat.c3": "Story Memory for long tales",
+    "card.phoenix.name": "PhoenixAI",
+    "card.phoenix.tag": "AI chat · images · video in one",
+    "card.phoenix.desc": "A bring-your-own-key studio: chat with GPT, Claude and Gemini, create with Nano Banana, roll video with Seedance.",
+    "card.phoenix.c1": "Leading models, mid-chat switching",
+    "card.phoenix.c2": "Up to 2048×2048 HD images",
+    "card.phoenix.c3": "Seedance video, audio optional",
+    "card.cta": "Open product page",
+    "privacy.title": "Privacy is the baseline",
+    "privacy.desc": "Your data stays on your device by default. If we ever need to collect information, it will only be to improve our products — never for ads, never for sale. This promise is built into every app.",
+    "privacy.zh": "阅读隐私政策（中文）",
+    "privacy.en": "Read Privacy Policy (English)",
+    "contact.eyebrow": "CONTACT",
+    "contact.title": "Get in touch",
+    "contact.sub": "Questions, ideas — or something you'd like to build with us.",
+    "contact.s.title": "Support & Feedback",
+    "contact.s.desc": "Found a bug or have a feature request? We usually reply fast.",
+    "contact.b.title": "Business & Investment",
+    "contact.b.desc": "Partnerships, distribution and investment inquiries are welcome.",
+    "footer.privacy": "Privacy Policy",
+    "footer.support": "Support",
+    "footer.biz": "Business",
+    "footer.note": "© 2026 Suzatei. All rights reserved. Third-party names mentioned herein are trademarks of their respective owners, used for identification only."
+  }
+}
+</script>
+
+<script>
+/* =====================================================================
+ * Suzatei 产品总览页脚本
+ * —— 多语言：默认 zh_CN / en_US（上方 JSON），运行时拉取 i18n/locales.csv
+ *    覆盖；CSV 新增语言列会自动出现在切换器。
+ * ===================================================================== */
+(function () {
+  "use strict";
+
+  var I18N = JSON.parse(document.getElementById("i18n-data").textContent);
+  var LANG_NAMES = { zh_CN: "中文", en_US: "English" };
+  var locales = JSON.parse(JSON.stringify(I18N));
+  var LANG_KEY = "suzatei.hub.lang";
+  var lang = detectLang();
+
+  function detectLang() {
+    try {
+      var saved = localStorage.getItem(LANG_KEY);
+      if (saved && I18N[saved]) return saved;
+    } catch (e) {}
+    return (navigator.language || "en").toLowerCase().indexOf("zh") === 0 ? "zh_CN" : "en_US";
+  }
+  function t(key) {
+    var d = locales[lang] || {};
+    return d[key] != null ? d[key]
+      : (locales.en_US && locales.en_US[key]) != null ? locales.en_US[key]
+      : (locales.zh_CN && locales.zh_CN[key]) != null ? locales.zh_CN[key]
+      : "";
+  }
+  function applyI18n() {
+    document.documentElement.lang = lang === "zh_CN" ? "zh-CN" : "en-US";
+    document.title = t("meta.title");
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute("content", t("meta.desc"));
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      el.textContent = t(el.getAttribute("data-i18n"));
+    });
+    buildLangSwitcher();
+  }
+  function buildLangSwitcher() {
+    var sw = document.getElementById("lang-switch");
+    if (!sw) return;
+    sw.innerHTML = "";
+    Object.keys(locales).forEach(function (code) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "lang-btn" + (code === lang ? " active" : "");
+      b.textContent = LANG_NAMES[code] || code;
+      b.addEventListener("click", function () {
+        lang = code;
+        try { localStorage.setItem(LANG_KEY, code); } catch (e) {}
+        applyI18n();
+      });
+      sw.appendChild(b);
+    });
+  }
+
+  function parseCSV(text) {
+    var rows = [], row = [], field = "", inQ = false, i, c;
+    for (i = 0; i < text.length; i++) {
+      c = text[i];
+      if (inQ) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; }
+          else inQ = false;
+        } else field += c;
+      } else if (c === '"') inQ = true;
+      else if (c === ",") { row.push(field); field = ""; }
+      else if (c === "\n" || c === "\r") {
+        if (c === "\r" && text[i + 1] === "\n") i++;
+        row.push(field); field = "";
+        if (row.length > 1 || row[0].trim() !== "") rows.push(row);
+        row = [];
+      } else field += c;
+    }
+    if (field !== "" || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+  fetch("i18n/locales.csv", { cache: "no-store" })
+    .then(function (r) { if (!r.ok) throw new Error("no csv"); return r.text(); })
+    .then(function (text) {
+      var rows = parseCSV(text);
+      if (rows.length < 2) return;
+      var header = rows[0].map(function (h) { return h.trim(); });
+      var keyIdx = header.indexOf("key");
+      if (keyIdx < 0) return;
+      var cols = [];
+      header.forEach(function (h, i) {
+        if (i !== keyIdx && /^[a-z]{2,3}([-_][A-Za-z0-9]{2,8})*$/.test(h)) cols.push([i, h]);
+      });
+      cols.forEach(function (p) { if (!locales[p[1]]) locales[p[1]] = {}; });
+      rows.slice(1).forEach(function (r) {
+        var k = (r[keyIdx] || "").trim();
+        if (!k) return;
+        cols.forEach(function (p) {
+          if (r[p[0]] !== undefined && r[p[0]].trim() !== "") locales[p[1]][k] = r[p[0]];
+        });
+      });
+      if (!locales[lang]) lang = detectLang();
+      applyI18n();
+    })
+    .catch(function () {});
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  var nav = document.getElementById("nav");
+  function onScroll() {
+    if (window.scrollY > 8) nav.classList.add("scrolled");
+    else nav.classList.remove("scrolled");
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  applyI18n();
+})();
+</script>
+</body>
+</html>
