@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API 钱包 — AI 余额与套餐聚合管家 | Suzatei</title>
-<meta name="description" content="API 钱包：聚合管理 DeepSeek、OpenAI、Claude、Gemini、Kimi、智谱 GLM 等 AI 服务的余额与订阅套餐，密钥仅存本机钥匙串。">
+<title>API Wallet — AI Balance & Plan Tracker | Suzatei</title>
+<meta name="description" content="API Wallet aggregates balances and subscription plans across DeepSeek, OpenAI, Claude, Gemini, Kimi, Zhipu GLM and more. Keys never leave your Keychain.">
 <meta name="robots" content="all">
-<meta property="og:title" content="API 钱包 — AI 余额与套餐聚合管家">
-<meta property="og:description" content="聚合管理多家 AI 服务商的余额与套餐额度，密钥仅存本机钥匙串。">
+<meta property="og:title" content="API Wallet — AI Balance & Plan Tracker | Suzatei">
+<meta property="og:description" content="API Wallet aggregates balances and subscription plans across DeepSeek, OpenAI, Claude, Gemini, Kimi, Zhipu GLM and more. Keys never leave your Keychain.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="image/icon.png?v=2">
 <link rel="stylesheet" href="css/style.css">
@@ -19,9 +19,9 @@
   <div class="nav-inner">
     <a class="brand" href="#top"><img src="image/icon.png?v=2" alt="API Wallet"><span>API Wallet</span></a>
     <div class="nav-links">
-      <a href="#features" data-i18n="nav.features">功能</a>
-      <a href="#faq" data-i18n="nav.faq">常见问题</a>
-      <a href="#contact" data-i18n="nav.contact">联系我们</a>
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </div>
     <div class="lang-switch" id="lang-switch" aria-label="Language"></div>
   </div>
@@ -36,31 +36,31 @@
 
   <header class="hero">
     <div>
-      <span class="badge reveal"><span class="dot"></span><span data-i18n="hero.badge">为 AI 重度用户打造</span></span>
+      <span class="badge reveal"><span class="dot"></span><span data-i18n="hero.badge">Built for heavy AI users</span></span>
       <h1 class="reveal" style="--d:.06s">
-        <span data-i18n="hero.title1">API 余额与套餐</span><br>
-        <span class="grad" data-i18n="hero.title2">一目了然</span>
+        <span data-i18n="hero.title1">Every AI balance</span><br>
+        <span class="grad" data-i18n="hero.title2">at a glance.</span>
       </h1>
-      <p class="hero-desc reveal" style="--d:.12s" data-i18n="hero.desc">聚合管理 DeepSeek、OpenAI、Claude、Gemini、Kimi、智谱 GLM 等 AI 服务的余额与订阅套餐，支持自定义接口与桌面小组件。密钥仅存于本机钥匙串，安全无忧。</p>
+      <p class="hero-desc reveal" style="--d:.12s" data-i18n="hero.desc">Aggregate balances and subscription plans across DeepSeek, OpenAI, Claude, Gemini, Kimi, Zhipu GLM and more — with custom endpoints and home-screen widgets. Keys never leave your Keychain.</p>
       <div class="hero-cta reveal" style="--d:.18s">
         <a class="btn btn-primary" id="store-btn" href="#features">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg>
-          <span data-i18n="cta.download">App Store 下载</span>
+          <span data-i18n="cta.download">Download on the App Store</span>
         </a>
-        <a class="btn btn-ghost" href="#features" data-i18n="cta.secondary">了解功能</a>
+        <a class="btn btn-ghost" href="#features" data-i18n="cta.secondary">Explore features</a>
       </div>
       <div class="hero-meta reveal" style="--d:.24s">
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></svg><span data-i18n="hero.meta1">Keychain 加密存储</span></span>
-        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-i18n="hero.meta2">无账号 · 不收集数据</span></span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10z"/></svg><span data-i18n="hero.meta1">Encrypted in Keychain</span></span>
+        <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-i18n="hero.meta2">No account · No tracking</span></span>
       </div>
     </div>
 
     <div class="mock-zone reveal" style="--d:.2s" id="tilt">
       <div class="mock" id="mock">
         <div class="mock-card mock-main">
-          <div class="label" data-i18n="mock.total">总余额</div>
+          <div class="label" data-i18n="mock.total">Total balance</div>
           <div class="value"><span class="counter" data-count="2847.65" data-prefix="$" data-decimals="2">$0.00</span></div>
-          <div class="sub" data-i18n="mock.sub">6 个服务商 · 刚刚更新</div>
+          <div class="sub" data-i18n="mock.sub">6 providers · Updated just now</div>
           <svg class="spark" viewBox="0 0 320 60" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="sparkGrad" x1="0" y1="0" x2="1" y2="0">
@@ -73,28 +73,28 @@
         <div class="mock-card mock-b1">
           <div class="mock-row">
             <span class="p-dot" style="background:linear-gradient(135deg,#3b6ef5,#2458e6)">DS</span>
-            <span><span class="p-name">DeepSeek</span><br><span class="p-tag" data-i18n="mock.balance">余额</span></span>
+            <span><span class="p-name">DeepSeek</span><br><span class="p-tag" data-i18n="mock.balance">Balance</span></span>
             <span class="p-val counter" data-count="1204.50" data-prefix="¥" data-decimals="2">¥0.00</span>
           </div>
         </div>
         <div class="mock-card mock-b2">
           <div class="mock-row">
             <span class="p-dot" style="background:linear-gradient(135deg,#10b3a3,#0d9488)">AI</span>
-            <span><span class="p-name">OpenAI</span><br><span class="p-tag" data-i18n="mock.balance">余额</span></span>
+            <span><span class="p-name">OpenAI</span><br><span class="p-tag" data-i18n="mock.balance">Balance</span></span>
             <span class="p-val counter" data-count="186.20" data-prefix="$" data-decimals="2">$0.00</span>
           </div>
         </div>
         <div class="mock-card mock-plan">
           <div class="mock-row">
             <span class="p-dot" style="background:linear-gradient(135deg,#0c8a7d,#065f52)">K</span>
-            <span><span class="p-name">Kimi</span><br><span class="p-tag" data-i18n="mock.plan">会员套餐 · 用量</span></span>
+            <span><span class="p-name">Kimi</span><br><span class="p-tag" data-i18n="mock.plan">Membership plan · Usage</span></span>
             <span class="p-val" style="color:#34d399">68%</span>
           </div>
           <div class="bar"><i class="w68"></i></div>
         </div>
         <span class="mock-chip">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span data-i18n="mock.chip">Keychain 加密</span>
+          <span data-i18n="mock.chip">Keychain encrypted</span>
         </span>
       </div>
     </div>
@@ -103,7 +103,7 @@
 
 <!-- ================= 服务商跑马灯 ================= -->
 <div class="marquee-band">
-  <div class="marquee-label" data-i18n="marquee.label">支持主流 AI 服务商</div>
+  <div class="marquee-label" data-i18n="marquee.label">Works with leading AI providers</div>
   <div class="marquee">
     <div class="marquee-track" id="marquee-track">
       <span class="chip"><i style="background:#3b6ef5"></i>DeepSeek</span>
@@ -111,12 +111,12 @@
       <span class="chip"><i style="background:#d97757"></i>Anthropic</span>
       <span class="chip"><i style="background:#4285f4"></i>Gemini</span>
       <span class="chip"><i style="background:#0c8a7d"></i>Kimi</span>
-      <span class="chip"><i style="background:#3859ff"></i><span data-i18n="m.zhipu">智谱 GLM</span></span>
+      <span class="chip"><i style="background:#3859ff"></i><span data-i18n="m.zhipu">Zhipu GLM</span></span>
       <span class="chip"><i style="background:#1a1a1a;border:1px solid #555"></i>Grok</span>
-      <span class="chip"><i style="background:#3b82f6"></i><span data-i18n="m.doubao">豆包</span></span>
-      <span class="chip"><i style="background:#f59e0b"></i><span data-i18n="m.qwen">通义千问</span></span>
+      <span class="chip"><i style="background:#3b82f6"></i><span data-i18n="m.doubao">Doubao</span></span>
+      <span class="chip"><i style="background:#f59e0b"></i><span data-i18n="m.qwen">Qwen</span></span>
       <span class="chip"><i style="background:#a855f7"></i>MiniMax</span>
-      <span class="chip"><i style="background:#22d3ee"></i><span data-i18n="m.siliconflow">硅基流动</span></span>
+      <span class="chip"><i style="background:#22d3ee"></i><span data-i18n="m.siliconflow">SiliconFlow</span></span>
       <span class="chip"><i style="background:#e5e7eb"></i>Ollama</span>
       <span class="chip"><i style="background:#8b5cf6"></i>New API</span>
     </div>
@@ -126,39 +126,39 @@
 <!-- ================= 功能 ================= -->
 <section class="block section-pad" id="features">
   <span class="eyebrow reveal" data-i18n="features.eyebrow">FEATURES</span>
-  <h2 class="title reveal" style="--d:.05s" data-i18n="features.title">一个 App，管好所有 AI 开销</h2>
-  <p class="subtitle reveal" style="--d:.1s" data-i18n="features.sub">从余额到套餐，从安全到小组件，为 AI 重度用户准备的完整方案。</p>
+  <h2 class="title reveal" style="--d:.05s" data-i18n="features.title">One app for every AI expense</h2>
+  <p class="subtitle reveal" style="--d:.1s" data-i18n="features.sub">From balances to plans, from security to widgets — the complete kit for heavy AI users.</p>
 
   <div class="grid">
     <div class="card reveal" style="--d:.0s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div>
-      <h3 data-i18n="f1.title">余额聚合查询</h3>
-      <p data-i18n="f1.desc">一键刷新多家服务商的官方 API 余额，多账号备注区分，总量与明细一目了然。</p>
+      <h3 data-i18n="f1.title">Aggregated Balances</h3>
+      <p data-i18n="f1.desc">Refresh official balances across providers in one tap. Track multiple accounts with notes, totals and details.</p>
     </div>
     <div class="card reveal" style="--d:.07s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M12 12l5-5"/><path d="M16 3h5v5"/></svg></div>
-      <h3 data-i18n="f2.title">套餐额度追踪</h3>
-      <p data-i18n="f2.desc">Kimi 会员、GLM Coding Plan 等订阅套餐的额度与用量进度，实时掌握。</p>
+      <h3 data-i18n="f2.title">Plan & Quota Tracking</h3>
+      <p data-i18n="f2.desc">Keep an eye on subscription plans like Kimi membership and GLM Coding Plan with live usage progress.</p>
     </div>
     <div class="card reveal" style="--d:.14s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg></div>
-      <h3 data-i18n="f3.title">桌面小组件</h3>
-      <p data-i18n="f3.desc">余额常驻桌面，长按小组件即可勾选展示哪些服务商，一切尽在掌握。</p>
+      <h3 data-i18n="f3.title">Home-Screen Widgets</h3>
+      <p data-i18n="f3.desc">Keep balances on your home screen. Long-press the widget to choose which providers to show.</p>
     </div>
     <div class="card reveal" style="--d:.0s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5"/><path d="m16 7 5 5-5 5"/><path d="m13.5 4-3 16"/></svg></div>
-      <h3 data-i18n="f4.title">自定义 API 脚本</h3>
-      <p data-i18n="f4.desc">中转站、自建网关也能查：编写查询脚本，支持变量替换与保存前测试查询。</p>
+      <h3 data-i18n="f4.title">Custom API Scripts</h3>
+      <p data-i18n="f4.desc">Query relay stations and self-hosted gateways with custom scripts, variable substitution and test queries.</p>
     </div>
     <div class="card reveal" style="--d:.07s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.6"/></svg></div>
-      <h3 data-i18n="f5.title">钥匙串级安全</h3>
-      <p data-i18n="f5.desc">API Key 使用 iOS Keychain 加密保存，永不离开你的设备，不上传任何服务器。</p>
+      <h3 data-i18n="f5.title">Keychain-Grade Security</h3>
+      <p data-i18n="f5.desc">API keys are encrypted in the iOS Keychain. They never leave your device or touch any server.</p>
     </div>
     <div class="card reveal" style="--d:.14s">
       <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 15.2c2.6.2 4.4 1.7 5 4.3"/></svg></div>
-      <h3 data-i18n="f6.title">多账号管理</h3>
-      <p data-i18n="f6.desc">同一服务商添加多个 Key，主号与工作号并存，备注清晰区分。</p>
+      <h3 data-i18n="f6.title">Multi-Account Ready</h3>
+      <p data-i18n="f6.desc">Add multiple keys per provider — personal and work accounts side by side, clearly labelled.</p>
     </div>
   </div>
 </section>
@@ -167,21 +167,21 @@
 <div class="sec-band">
   <div class="sec-inner">
     <div class="reveal">
-      <h2 data-i18n="sec.title">零收集，零追踪</h2>
-      <p class="desc" data-i18n="sec.desc">API 钱包不含任何分析、广告或追踪组件。查询余额时，请求由你的设备直连各服务商官方 API，我们没有任何中间服务器。</p>
+      <h2 data-i18n="sec.title">Zero collection. Zero tracking.</h2>
+      <p class="desc" data-i18n="sec.desc">API Wallet ships with no analytics, ads or tracking. When you refresh a balance, the request goes straight from your device to the provider's official API — we run no middle servers.</p>
     </div>
     <div class="sec-points">
       <div class="sec-point reveal" style="--d:.0s">
         <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <span data-i18n="sec.p1">无账号 · 无注册</span>
+        <span data-i18n="sec.p1">No account · No sign-up</span>
       </div>
       <div class="sec-point reveal" style="--d:.08s">
         <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <span data-i18n="sec.p2">数据仅存本机</span>
+        <span data-i18n="sec.p2">On-device only</span>
       </div>
       <div class="sec-point reveal" style="--d:.16s">
         <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <span data-i18n="sec.p3">直连服务商官方 API</span>
+        <span data-i18n="sec.p3">Direct to official APIs</span>
       </div>
     </div>
   </div>
@@ -190,30 +190,30 @@
 <!-- ================= FAQ ================= -->
 <section class="block section-pad" id="faq">
   <span class="eyebrow reveal" data-i18n="faq.eyebrow">FAQ</span>
-  <h2 class="title reveal" style="--d:.05s" data-i18n="faq.title">常见问题</h2>
-  <p class="subtitle reveal" style="--d:.1s" data-i18n="faq.sub">关于 API 钱包的疑问，在这里找到答案。</p>
+  <h2 class="title reveal" style="--d:.05s" data-i18n="faq.title">Frequently Asked Questions</h2>
+  <p class="subtitle reveal" style="--d:.1s" data-i18n="faq.sub">Answers to common questions about API Wallet.</p>
 
   <div class="faq-list">
-    <details class="reveal"><summary><span data-i18n="faq.q1">如何获取 API Key？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a1a">在对应平台的控制台 → API Keys 页面创建即可：</p><p data-i18n="faq.a1b">DeepSeek：platform.deepseek.com；OpenAI：platform.openai.com；Anthropic Claude：console.anthropic.com；Kimi：platform.moonshot.cn；智谱：bigmodel.cn。拿到 Key 后，在 API 钱包中选择对应服务商，粘贴保存即可查询。</p></div>
+    <details class="reveal"><summary><span data-i18n="faq.q1">How do I get an API key?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a1a">Create one in each platform's console, under the API Keys page:</p><p data-i18n="faq.a1b">DeepSeek: platform.deepseek.com; OpenAI: platform.openai.com; Anthropic Claude: console.anthropic.com; Kimi: platform.moonshot.cn; Zhipu: bigmodel.cn. Then pick the provider in API Wallet, paste your key and save.</p></div>
     </details>
-    <details class="reveal" style="--d:.04s"><summary><span data-i18n="faq.q2">我的 API Key 安全吗？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a2a">安全。API Key 使用 iOS Keychain 加密存储，仅保存在你的设备上。App 不会将任何 Key 或余额数据上传到本 App 之外的任何服务器，所有查询请求由你的设备直接发送至各平台的官方 API。</p><p data-i18n="faq.a2b">删除某个配置时，Keychain 中对应的 Key 会同步删除。</p></div>
+    <details class="reveal" style="--d:.04s"><summary><span data-i18n="faq.q2">Are my API keys safe?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a2a">Yes. Keys are encrypted in the iOS Keychain and stay on your device. The app uploads no keys or balance data to any server of ours — every request goes straight from your device to each platform's official API.</p><p data-i18n="faq.a2b">Deleting a configuration also deletes its key from the Keychain.</p></div>
     </details>
-    <details class="reveal" style="--d:.08s"><summary><span data-i18n="faq.q3">如何添加桌面小组件？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a3a">在主屏幕长按空白处 → 点击左上角「+」→ 搜索「API 钱包」→ 选择尺寸添加。添加后长按小组件 →「编辑小组件」，即可勾选希望展示的服务商。</p><p data-i18n="faq.a3b">注意：请先在 App 内完成一次余额查询，小组件才会有数据显示。小组件约每 30 分钟由系统自动刷新。</p></div>
+    <details class="reveal" style="--d:.08s"><summary><span data-i18n="faq.q3">How do I add the home-screen widget?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a3a">Long-press the home screen → tap “+” → search for “API Wallet” → pick a size. Then long-press the widget → “Edit Widget” to choose which providers appear.</p><p data-i18n="faq.a3b">Note: run one balance query in the app first so the widget has data to show. The system refreshes widgets roughly every 30 minutes.</p></div>
     </details>
-    <details class="reveal" style="--d:.12s"><summary><span data-i18n="faq.q4">同一服务商可以添加多个 Key 吗？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a4">可以。同一服务商可重复添加多个 Key（例如主账号与公司账号），通过备注区分，卡片上会显示在名称旁。</p></div>
+    <details class="reveal" style="--d:.12s"><summary><span data-i18n="faq.q4">Can I add multiple keys for one provider?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a4">Yes. Add as many keys per provider as you like — a personal and a company account, for example — and tell them apart with notes shown next to the name.</p></div>
     </details>
-    <details class="reveal" style="--d:.16s"><summary><span data-i18n="faq.q5">余额多久更新一次？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a5">打开 App 或下拉刷新时会立即查询全部服务商；也可以在每个服务商的编辑页设置自动查询间隔（仅在 App 前台运行时生效）。</p></div>
+    <details class="reveal" style="--d:.16s"><summary><span data-i18n="faq.q5">How often do balances refresh?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a5">Opening the app or pulling to refresh queries every provider instantly. You can also set a per-provider auto-refresh interval (active while the app is in the foreground).</p></div>
     </details>
-    <details class="reveal" style="--d:.2s"><summary><span data-i18n="faq.q6">如何查询自定义 / 中转服务的余额？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a6">在主页「+」菜单中选择「自定义 API」，填入请求地址与（可选的）API Key，并编写查询脚本。脚本支持变量替换，保存前可使用「测试查询」验证配置是否正确。</p></div>
+    <details class="reveal" style="--d:.2s"><summary><span data-i18n="faq.q6">Can I query custom or relay endpoints?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a6">Choose “Custom API” from the “+” menu on the home screen, enter the base URL and an optional API key, then write a query script. Variable substitution is supported, and “Test Query” verifies everything before you save.</p></div>
     </details>
-    <details class="reveal" style="--d:.24s"><summary><span data-i18n="faq.q7">如何删除我的数据？</span><span class="plus"></span></summary>
-      <div class="answer"><p data-i18n="faq.a7">删除某个服务商配置时，App 会同步删除 Keychain 中保存的 API Key。卸载 App 即清除全部本地数据，不会留下任何痕迹。</p></div>
+    <details class="reveal" style="--d:.24s"><summary><span data-i18n="faq.q7">How do I delete my data?</span><span class="plus"></span></summary>
+      <div class="answer"><p data-i18n="faq.a7">Deleting a provider configuration removes its key from the Keychain. Uninstalling the app wipes all local data — nothing is left behind.</p></div>
     </details>
   </div>
 </section>
@@ -221,20 +221,20 @@
 <!-- ================= 联系 ================= -->
 <section class="block section-pad" id="contact">
   <span class="eyebrow reveal" data-i18n="contact.eyebrow">CONTACT</span>
-  <h2 class="title reveal" style="--d:.05s" data-i18n="contact.title">联系我们</h2>
-  <p class="subtitle reveal" style="--d:.1s" data-i18n="contact.sub">疑问、提议，或者想和我们一起做点事。</p>
+  <h2 class="title reveal" style="--d:.05s" data-i18n="contact.title">Get in touch</h2>
+  <p class="subtitle reveal" style="--d:.1s" data-i18n="contact.sub">Questions, ideas — or something you'd like to build with us.</p>
 
   <div class="contact-grid">
     <div class="contact-card reveal" style="--d:.0s">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="m3.5 7 8.5 6 8.5-6"/></svg></div>
-      <h3 data-i18n="contact.s.title">技术支持与建议</h3>
-      <p data-i18n="contact.s.desc">遇到问题或有功能建议，我们会尽快回复。</p>
+      <h3 data-i18n="contact.s.title">Support & Feedback</h3>
+      <p data-i18n="contact.s.desc">Found a bug or have a feature request? We usually reply fast.</p>
       <a class="mail" href="mailto:support@suzatei.com">support@suzatei.com</a>
     </div>
     <div class="contact-card reveal" style="--d:.08s">
       <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12h18"/></svg></div>
-      <h3 data-i18n="contact.b.title">合作与投资</h3>
-      <p data-i18n="contact.b.desc">商务合作、渠道洽谈与投资事宜，欢迎来信。</p>
+      <h3 data-i18n="contact.b.title">Business & Investment</h3>
+      <p data-i18n="contact.b.desc">Partnerships, distribution and investment inquiries are welcome.</p>
       <a class="mail" href="mailto:contact@suzatei.com">contact@suzatei.com</a>
     </div>
   </div>
@@ -245,12 +245,12 @@
   <div class="foot-inner">
     <div class="foot-brand"><img src="image/icon.png?v=2" alt=""><span>Suzatei</span></div>
     <div class="foot-links">
-      <a href="../Privacy/privacy_zh_CN.html" data-privacy-link data-i18n="footer.privacy">隐私政策</a>
-      <a href="mailto:support@suzatei.com" data-i18n="footer.support">技术支持</a>
-      <a href="mailto:contact@suzatei.com" data-i18n="footer.biz">商务合作</a>
+      <a href="../Privacy/privacy_zh_CN.html" data-privacy-link data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="mailto:support@suzatei.com" data-i18n="footer.support">Support</a>
+      <a href="mailto:contact@suzatei.com" data-i18n="footer.biz">Business</a>
     </div>
   </div>
-  <p class="foot-note" data-i18n="footer.note">© 2026 Suzatei. 保留所有权利。本应用与所提及的各平台无隶属关系，仅通过各平台官方公开接口查询您自己的账户数据。</p>
+  <p class="foot-note" data-i18n="footer.note">© 2026 Suzatei. All rights reserved. This app is not affiliated with the platforms mentioned; it queries only your own account data via their official public APIs.</p>
 </footer>
 
 <!-- ================= 内嵌多语言数据（默认值，运行时会被 i18n/locales.csv 覆盖） ================= -->
